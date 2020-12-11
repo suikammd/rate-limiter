@@ -77,7 +77,6 @@ func (s *SlidingCounter) resetCounter() {
 	for {
 		select {
 		case <-s.Ticker.C:
-			fmt.Println("tick")
 			s.Lock()
 			s.list.removeHead()
 			s.list.addToTail(s.interval)
@@ -99,7 +98,6 @@ func (s *SlidingCounter) ServeRequest(r req.Request) bool {
 	}
 
 	idx := int((time.Now().UnixNano() - s.list.Head.start.UnixNano()) / (1000 * 1000 * int64(s.interval)))
-	fmt.Println(time.Now().UnixNano(), s.list.Head.start.UnixNano(), idx)
 	s.list.index(idx).counter++
 	r.Func(true)
 	return true
