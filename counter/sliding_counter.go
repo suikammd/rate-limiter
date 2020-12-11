@@ -125,7 +125,7 @@ func (s SlidingCounter) Start() {
 	}()
 
 	time.Sleep(5 * time.Second)
-	s.stopCh <- true
+	close(s.stopCh)
 	wg.Wait()
 }
 

@@ -70,6 +70,6 @@ func (f FixedCounter) Start() {
 	for i := 0; i < len(reqs); i++ {
 		go f.ServeRequest(reqs[i])
 	}
-	f.StopCh <- true
+	close(f.StopCh)
 	time.Sleep(2 * time.Second)
 }
